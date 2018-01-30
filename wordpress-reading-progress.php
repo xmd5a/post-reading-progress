@@ -14,6 +14,7 @@ declare(strict_types=1);
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
 
+require_once('src/PluginSettingsInterface.php');
 require_once('src/PluginSettings.php');
 
 class ReadingProgress
@@ -37,10 +38,11 @@ $pluginSettings->addSection(
 );
 try {
     $pluginSettings->addSettingsField(
-        'enabled',
+        'enable-plugin',
         __('Enable plugin', 'post-reading-progress'),
-        'text',
+        'checkbox',
         'reading',
+        array($pluginSettings, 'renderInputCheckbox'),
         'post-reading-progress-settings'
     );
 } catch (Exception $e) {

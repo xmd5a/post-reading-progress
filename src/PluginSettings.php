@@ -1,6 +1,6 @@
 <?php
 
-class PluginSettings
+class PluginSettings implements PluginSettingsInterface
 {
     private $settingsFields = array();
     private $settingsSections = array();
@@ -28,6 +28,7 @@ class PluginSettings
         string $title,
         string $type,
         string $page,
+        callable $callback,
         string $section
     ): bool
     {
@@ -37,7 +38,7 @@ class PluginSettings
                 'id' => $id,
                 'title' => $title,
                 'type' => $type,
-                'callback' => array($this, 'renderInput'),
+                'callback' => $callback,
                 'page' => $page,
                 'section' => $section,
                 'args' => array(
@@ -83,10 +84,23 @@ class PluginSettings
         });
     }
 
-    public function renderInput(array $args)
+    public function renderInputText(array $args) : string
     {
-        $value = get_option($args['name'], false);
-        echo "<input type=\"$args[type]\" id=\"$args[name]\" name=\"$args[name]\" value=\"$value\" />";
+        return vprintf("<input type=\"%s\" id=\"%s\" name=\"%s\" value=\"%s\" />", array(
+            $args['type'],
+            $args[name],
+            $args[name],
+            get_option($args['name'], false)
+        ));
+    }
+
+    public function renderInputCheckbox(array $args) : string
+    {
+        return vprintf("<input type=\"checkbox\" id=\"%s\" name=\"%s\" value=\"1\" %s />", array(
+            $args['name'],
+            $args['name'],
+            checked(get_option($args['name'], false), 1, false)
+        ));
     }
 }
 
