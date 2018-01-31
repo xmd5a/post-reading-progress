@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace wrp;
+
 /**
  * Plugin Name: Post Reading Progress
  * Plugin URI: http:/piotrszarmach.com
@@ -14,12 +16,12 @@ declare(strict_types=1);
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-require_once('src/PluginSettingsInterface.php');
-require_once('src/PluginSettings.php');
+require_once('includes/PluginSettingsInterface.php');
+require_once('includes/PluginSettings.php');
 
 class ReadingProgress
 {
-    public function __construct(PluginSettings $pluginSettings)
+    public function __construct(includes\PluginSettings $pluginSettings)
     {
         //initialize plugin settings
         $pluginSettings->init();
@@ -27,7 +29,7 @@ class ReadingProgress
 }
 
 
-$pluginSettings = new PluginSettings();
+$pluginSettings = new includes\PluginSettings();
 $pluginSettings->addSection(
     'post-reading-progress-settings',
     'Post Reading Progress Settings',

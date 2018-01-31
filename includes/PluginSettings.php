@@ -1,5 +1,7 @@
 <?php
 
+namespace wrp\includes;
+
 class PluginSettings implements PluginSettingsInterface
 {
     private $settingsFields = array();
