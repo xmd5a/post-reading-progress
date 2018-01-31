@@ -21,10 +21,19 @@ require_once('includes/PluginSettings.php');
 
 class ReadingProgress
 {
+    const PLUGIN_VERSION = '1.0.0';
+
     public function __construct(includes\PluginSettings $pluginSettings)
     {
         //initialize plugin settings
         $pluginSettings->init();
+
+        //include js files
+        add_action('wp_enqueue_scripts', array($this, 'includeJS'));
+    }
+
+    public function includeJS() {
+        wp_enqueue_script(__CLASS__, plugins_url('/public/js/wordpress-reading-progress.js', __FILE__), null, self::PLUGIN_VERSION, true);
     }
 }
 
@@ -33,8 +42,8 @@ $pluginSettings = new includes\PluginSettings();
 $pluginSettings->addSection(
     'post-reading-progress-settings',
     'Post Reading Progress Settings',
-    function() {
-        printf('<p>%s</p>', __('Short pointless description', 'post-reading-progress')) ;
+    function () {
+        printf('<p>%s</p>', __('Short pointless description', 'post-reading-progress'));
     },
     'reading'
 );
