@@ -33,7 +33,8 @@ class ReadingProgress
     }
 
     public function includeJS() {
-        wp_enqueue_script(__CLASS__, plugins_url('/public/js/wordpress-reading-progress.js', __FILE__), null, self::PLUGIN_VERSION, true);
+        wp_enqueue_script(__CLASS__, plugins_url('/public/js/bundle.js', __FILE__), null, self::PLUGIN_VERSION, true);
+        wp_enqueue_style('CSS', plugins_url('/public/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
     }
 }
 
