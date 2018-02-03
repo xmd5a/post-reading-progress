@@ -1,0 +1,44 @@
+{
+  "name": "wordpress-reading-progress",
+  "version": "1.0.0",
+  "description": "Add reading progress bar on top or bottom of single post and post reading time info on listing pages",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "css-loader": "^0.28.9",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/webpack --devtool='inline-source-map'",
+    "build:prod": "./node_modules/.bin/webpack -p",
+    "watch": "./node_modules/.bin/webpack --watch --devtool='inline-source-map'",
+    "dev": "./node_modules/.bin/webpack-dev-server --devtool='inline-source-map'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xmd5a/wordpress-reading-progress.git"
+  },
+  "keywords": [
+    "javascript",
+    "php",
+    "oop",
+    "wordpress",
+    "wordpress",
+    "plugin"
+  ],
+  "author": "Piotr Szarmach",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/xmd5a/wordpress-reading-progress/issues"
+  },
+  "homepage": "https://github.com/xmd5a/wordpress-reading-progress#readme"
+}
