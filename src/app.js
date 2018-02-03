@@ -1,2 +1,4 @@
 import './scss/app.scss';
-import './js/app';
+import WordpressReadingProgress from './js/app';
+
+const readingProgressBar = new WordpressReadingProgress('wordpress-reading-progress-end');

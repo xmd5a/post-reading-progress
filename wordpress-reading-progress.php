@@ -30,11 +30,18 @@ class ReadingProgress
 
         //include js files
         add_action('wp_enqueue_scripts', array($this, 'includeJS'));
+
+        //set end of post
+        add_filter('the_content', array($this, 'setPostEnd'));
     }
 
     public function includeJS() {
         wp_enqueue_script(__CLASS__, plugins_url('/public/js/bundle.js', __FILE__), null, self::PLUGIN_VERSION, true);
         wp_enqueue_style('CSS', plugins_url('/public/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
+    }
+
+    public function setPostEnd($content) : string {
+        return $content . '<div id="wordpress-reading-progress-end"></div>';
     }
 }
 
