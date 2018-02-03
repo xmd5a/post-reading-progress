@@ -56,8 +56,7 @@ module.exports = {
     devServer: {
         stats: 'errors-only',
         open: true,
-        port: 666,
+        port: 3000,
         compress: true
-    },
-    devtool: 'inline-source-map'
+    }
 }

@@ -18,10 +18,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/webpack",
+    "build": "./node_modules/.bin/webpack --devtool='inline-source-map'",
     "build:prod": "./node_modules/.bin/webpack -p",
-    "watch": "./node_modules/.bin/webpack --watch",
-    "dev": "./node_modules/.bin/webpack-dev-server"
+    "watch": "./node_modules/.bin/webpack --watch --devtool='inline-source-map'",
+    "dev": "./node_modules/.bin/webpack-dev-server --devtool='inline-source-map'"
   },
   "repository": {
     "type": "git",
