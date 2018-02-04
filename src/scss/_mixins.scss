@@ -1,0 +1,4 @@
+@mixin animate( $time: .2s, $delay: 0s, $element: all, $timingFunction: ease ) {
+  transition:  $element $time $timingFunction $delay;
+  -webkit-transition: $element $time $timingFunction $delay;
+}
