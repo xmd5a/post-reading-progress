@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace wrp;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * Plugin Name: Post Reading Progress
  * Plugin URI: http:/piotrszarmach.com
@@ -22,6 +26,8 @@ require_once('includes/PluginSettings.php');
 class ReadingProgress
 {
     const PLUGIN_VERSION = '1.0.0';
+    const PLUGIN_NAME = 'Post Reading Progress';
+    const PLUGIN_SLUG = 'post-reading-progress';
 
     public function __construct(includes\PluginSettings $pluginSettings)
     {
@@ -31,17 +37,28 @@ class ReadingProgress
         //include js files
         add_action('wp_enqueue_scripts', array($this, 'includeJS'));
 
-        //set end of post
-        add_filter('the_content', array($this, 'setPostEnd'));
+        //load plugin translations
+        add_action('plugins_loaded', array($this, 'loadPluginTranslations'));
+
+        //set marker element at end of post
+        add_filter('the_content', array($this, 'setPostEndMarker'));
     }
 
-    public function includeJS() {
+    public function includeJS()
+    {
         wp_enqueue_script(__CLASS__, plugins_url('/public/js/bundle.js', __FILE__), null, self::PLUGIN_VERSION, true);
         wp_enqueue_style('CSS', plugins_url('/public/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
     }
 
-    public function setPostEnd($content) : string {
-        return $content . '<div id="wordpress-reading-progress-end"></div>';
+    public function loadPluginTranslations()
+    {
+        load_plugin_textdomain(self::PLUGIN_SLUG, false, basename(dirname(__FILE__)) . '/languages');
+    }
+
+    public function setPostEndMarker(string $content): string
+    {
+        if (is_single())
+            return $content . '<div id="wordpress-reading-progress-end"></div>';
     }
 }
 

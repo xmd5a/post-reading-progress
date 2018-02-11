@@ -2,6 +2,10 @@
 
 namespace wrp\includes;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 class PluginSettings implements PluginSettingsInterface
 {
     private $settingsFields = array();
