@@ -6,11 +6,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class PluginSettings implements PluginSettingsInterface
+class PluginSettings implements BaseSettingsInterface, PluginSettingsInterface
 {
     private $settingsFields = array();
     private $settingsSections = array();
-    private $fieldTypes = array('text', 'checkbox');
+    private $fieldTypes = array('text', 'checkbox', 'radio');
 
     public function addSection(
         string $id,
@@ -35,6 +35,7 @@ class PluginSettings implements PluginSettingsInterface
         string $type,
         string $page,
         callable $callback,
+        $options = array(),
         string $section
     ): bool
     {
@@ -50,14 +51,15 @@ class PluginSettings implements PluginSettingsInterface
                 'args' => array(
                     'label_for' => $id,
                     'name' => $id,
-                    'type' => $type
+                    'type' => $type,
+                    'options' => $options
                 )
             );
 
             return true;
         }
 
-        throw new Exception(__('Invalid input type.', 'post-reading-progress'));
+        throw new \Exception(__('Invalid input type.', self::PLUGIN_SLUG));
     }
 
     public function init()
@@ -107,6 +109,26 @@ class PluginSettings implements PluginSettingsInterface
             $args['name'],
             checked(get_option($args['name'], false), 1, false)
         ));
+    }
+
+    public function renderInputRadio(array $args) : string
+    {
+        if(is_array($args['options']) && count($args['options']) > 1){
+            $return = null;
+
+            foreach ($args['options'] as $option) {
+                $return .= vprintf("<label><input type=\"radio\" name=\"%s\" value=\"%s\" %s />%s</label><br>", array(
+                    $args['name'],
+                    $option['value'],
+                    checked(get_option($args['name'], false), $option['value'], false),
+                    $option['label']
+                ));
+            }
+
+            return $return;
+        }
+
+        throw new \Exception(__('Not enough options', self::PLUGIN_SLUG));
     }
 }
 

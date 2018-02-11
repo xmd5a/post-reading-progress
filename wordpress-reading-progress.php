@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace wrp;
+use wrp\includes\BaseSettingsInterface as BaseSettingsInterface;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -21,17 +22,39 @@ if (!defined('ABSPATH')) {
  */
 
 require_once('includes/PluginSettingsInterface.php');
+require_once('includes/BaseSettingsInterface.php');
 require_once('includes/PluginSettings.php');
 
-class ReadingProgress
+class ReadingProgress implements BaseSettingsInterface
 {
-    const PLUGIN_VERSION = '1.0.0';
-    const PLUGIN_NAME = 'Post Reading Progress';
-    const PLUGIN_SLUG = 'post-reading-progress';
-
-    public function __construct(includes\PluginSettings $pluginSettings)
+    public function __construct()
     {
         //initialize plugin settings
+        $pluginSettings = new includes\PluginSettings();
+        $pluginSettings->addSection(
+            'post-reading-progress-settings',
+            'Post Reading Progress Settings',
+            function () {
+                printf('<p>%s</p>', __('Short pointless description', 'post-reading-progress'));
+            },
+            'reading'
+        );
+        try {
+            foreach (self::PLUGIN_OPTIONS['options'] as $option) {
+                $pluginSettings->addSettingsField(
+                    $option['id'],
+                    $option['title'],
+                    $option['type'],
+                    $option['page'],
+                    array($pluginSettings, $option['callback']),
+                    $option['options'],
+                    self::PLUGIN_OPTIONS['section-slug']
+                );
+            }
+        } catch (\Exception $e) {
+            wp_die($e->getMessage());
+        }
+
         $pluginSettings->init();
 
         //include js files
@@ -42,6 +65,8 @@ class ReadingProgress
 
         //set marker element at end of post
         add_filter('the_content', array($this, 'setPostEndMarker'));
+
+
     }
 
     public function includeJS()
@@ -62,28 +87,6 @@ class ReadingProgress
     }
 }
 
-
-$pluginSettings = new includes\PluginSettings();
-$pluginSettings->addSection(
-    'post-reading-progress-settings',
-    'Post Reading Progress Settings',
-    function () {
-        printf('<p>%s</p>', __('Short pointless description', 'post-reading-progress'));
-    },
-    'reading'
-);
-try {
-    $pluginSettings->addSettingsField(
-        'enable-plugin',
-        __('Enable plugin', 'post-reading-progress'),
-        'checkbox',
-        'reading',
-        array($pluginSettings, 'renderInputCheckbox'),
-        'post-reading-progress-settings'
-    );
-} catch (Exception $e) {
-    wp_die($e->getMessage());
-}
-$readingProgress = new ReadingProgress($pluginSettings);
+$readingProgress = new ReadingProgress();
 
 ?>
