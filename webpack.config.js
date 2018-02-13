@@ -3,15 +3,18 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractPlugin = new ExtractTextPlugin({
-    filename: './css/bundle.css'
+    filename: './[name]/css/bundle.css'
 });
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
-    entry: './app.js',
+    entry: {
+        public: './public/app.js',
+        admin: './admin/app.js'
+    },
     output: {
-        path: path.resolve(__dirname, 'public'),
-        filename: './js/bundle.js'
+        path: path.resolve(__dirname),
+        filename: './[name]/js/bundle.js'
     },
     module: {
         rules: [
@@ -29,7 +32,7 @@ module.exports = {
             ,
             {
                 test: /\.scss$/,
-                include: [path.resolve(__dirname, 'src', 'scss')],
+                include: [path.resolve(__dirname, 'src', 'public', 'scss')],
                 use: extractPlugin.extract({
                     use: [
                         {
@@ -50,7 +53,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['public']),
+        new CleanWebpackPlugin(['public', 'admin']),
         extractPlugin
     ],
     devServer: {

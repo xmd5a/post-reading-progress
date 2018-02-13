@@ -62,6 +62,7 @@ class ReadingProgress
 
         //include js files
         add_action('wp_enqueue_scripts', array($this, 'includeJS'));
+        add_action('admin_enqueue_scripts', array($this, 'includeAdminJS'));
 
         //load plugin translations
         add_action('plugins_loaded', array($this, 'loadPluginTranslations'));
@@ -78,12 +79,18 @@ class ReadingProgress
         wp_enqueue_style('CSS', plugins_url('/public/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
     }
 
+    public function includeAdminJS(string $hook)
+    {
+        if ($hook == 'options-reading.php')
+            wp_enqueue_script(__CLASS__ . 'admin', plugins_url('/admin/js/bundle.js', __FILE__), null, self::PLUGIN_VERSION, true);
+    }
+
     public function loadPluginTranslations()
     {
         load_plugin_textdomain(self::PLUGIN_SLUG, false, basename(dirname(__FILE__)) . '/languages');
     }
 
-    public function setPostEndMarker(string $content)
+    public function setPostEndMarker(string $content): string
     {
         if (is_single())
             return $content . '<div id="wordpress-reading-progress-end"></div>';

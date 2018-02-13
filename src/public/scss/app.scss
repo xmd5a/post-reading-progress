@@ -11,6 +11,11 @@
     height: 40px;
     width: 100%;
     background: $black;
+    @include animate(.2s, .0s, transform, ease);
+
+    &.hide {
+      transform: translateY(-100%);
+    }
 
     > div {
       content: '';

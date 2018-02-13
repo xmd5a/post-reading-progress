@@ -9,6 +9,7 @@ class WordpressReadingProgress {
         this.scrollbarElementID = 'wordpress-reading-progress-bar';
 
         this.appendScrollbarElement(document.getElementsByTagName('body')[0]);
+        this.checkReadingProgress();
 
         window.addEventListener('resize', this.checkReadingProgress.bind(this));
         window.addEventListener('scroll', this.checkReadingProgress.bind(this));
@@ -42,8 +43,12 @@ class WordpressReadingProgress {
         const totalOffset = this.scrollPosition + currentOffset;
         let currentPercentPosition = Math.abs((currentOffset * 100 / totalOffset) - 100);
 
-        if(currentPercentPosition > 100)
+        if (currentPercentPosition > 100) {
             currentPercentPosition = 100;
+            !this.scrollbarElement.className.indexOf('hide') ? null : this.scrollbarElement.className = 'hide';
+        } else {
+            this.scrollbarElement.className = '';
+        }
 
         document.querySelector(`#${this.scrollbarElementID} > div`).style.width = currentPercentPosition + '%';
     }
