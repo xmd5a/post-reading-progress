@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 namespace wrp;
-use wrp\includes\BaseSettingsInterface as BaseSettingsInterface;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -21,12 +20,15 @@ if (!defined('ABSPATH')) {
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-require_once('includes/PluginSettingsInterface.php');
-require_once('includes/BaseSettingsInterface.php');
+require_once('includes/PluginOptions.php');
 require_once('includes/PluginSettings.php');
 
-class ReadingProgress implements BaseSettingsInterface
+class ReadingProgress
 {
+    const PLUGIN_VERSION = '1.0.0';
+    const PLUGIN_NAME = 'Post Reading Progress';
+    const PLUGIN_SLUG = 'post-reading-progress';
+
     public function __construct()
     {
         //initialize plugin settings
@@ -39,16 +41,17 @@ class ReadingProgress implements BaseSettingsInterface
             },
             'reading'
         );
+
         try {
-            foreach (self::PLUGIN_OPTIONS['options'] as $option) {
+            foreach (\wrp\includes\PluginOptions::getOptions() as $optionID => $option) {
                 $pluginSettings->addSettingsField(
-                    $option['id'],
+                    $optionID,
                     $option['title'],
                     $option['type'],
                     $option['page'],
                     array($pluginSettings, $option['callback']),
                     $option['options'],
-                    self::PLUGIN_OPTIONS['section-slug']
+                    'post-reading-progress-settings'
                 );
             }
         } catch (\Exception $e) {
@@ -80,10 +83,12 @@ class ReadingProgress implements BaseSettingsInterface
         load_plugin_textdomain(self::PLUGIN_SLUG, false, basename(dirname(__FILE__)) . '/languages');
     }
 
-    public function setPostEndMarker(string $content): string
+    public function setPostEndMarker(string $content)
     {
         if (is_single())
             return $content . '<div id="wordpress-reading-progress-end"></div>';
+
+        return $content;
     }
 }
 

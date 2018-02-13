@@ -6,11 +6,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class PluginSettings implements BaseSettingsInterface, PluginSettingsInterface
+class PluginSettings
 {
     private $settingsFields = array();
     private $settingsSections = array();
-    private $fieldTypes = array('text', 'checkbox', 'radio');
+    private $fieldTypes = array('text', 'checkbox', 'radio', 'colorpicker');
 
     public function addSection(
         string $id,
@@ -75,11 +75,6 @@ class PluginSettings implements BaseSettingsInterface, PluginSettingsInterface
             }
 
             foreach ($this->settingsFields as $field) {
-                register_setting(
-                    $field['page'],
-                    $field['id']
-                );
-
                 add_settings_field(
                     $field['id'],
                     $field['title'],
@@ -88,36 +83,65 @@ class PluginSettings implements BaseSettingsInterface, PluginSettingsInterface
                     $field['section'],
                     $field['args']
                 );
+
+                register_setting(
+                    $field['page'],
+                    $field['id']
+                );
             }
         });
     }
 
-    public function renderInputText(array $args) : string
+    public function renderInputText(array $args): bool
     {
-        return vprintf("<input type=\"%s\" id=\"%s\" name=\"%s\" value=\"%s\" />", array(
+        vprintf("<input type=\"%s\" id=\"%s\" name=\"%s\" value=\"%s\" />", array(
             $args['type'],
             $args[name],
             $args[name],
             get_option($args['name'], false)
         ));
+
+        return true;
     }
 
-    public function renderInputCheckbox(array $args) : string
+    public function renderInputCheckbox(array $args): bool
     {
-        return vprintf("<input type=\"checkbox\" id=\"%s\" name=\"%s\" value=\"1\" %s />", array(
-            $args['name'],
-            $args['name'],
-            checked(get_option($args['name'], false), 1, false)
-        ));
-    }
+        $options = get_option($args['name'], false) != '' ? get_option($args['name'], false) : array();
 
-    public function renderInputRadio(array $args) : string
-    {
-        if(is_array($args['options']) && count($args['options']) > 1){
+        if(is_array($args['options']) && count($args['options']) > 1)
+        {
             $return = null;
 
             foreach ($args['options'] as $option) {
-                $return .= vprintf("<label><input type=\"radio\" name=\"%s\" value=\"%s\" %s />%s</label><br>", array(
+                $return .= vsprintf("<label><input type=\"checkbox\" name=\"%s[]\" value=\"%s\" %s />%s</label><br>", array(
+                    $args['name'],
+                    $option['value'],
+                    checked(!in_array($option['value'], $options), null, false),
+                    $option['label']
+                ));
+            }
+
+            echo "<fieldset><p>" . $return . "</p></fieldset>";
+
+            return true;
+        } else {
+            vprintf("<input type=\"checkbox\" id=\"%s\" name=\"%s\" value=\"1\" %s />", array(
+                $args['name'],
+                $args['name'],
+                checked(get_option($args['name'], false), 1, false)
+            ));
+
+            return true;
+        }
+    }
+
+    public function renderInputRadio(array $args): bool
+    {
+        if (is_array($args['options']) && count($args['options']) > 1) {
+            $return = null;
+
+            foreach ($args['options'] as $option) {
+                $return .= vsprintf("<label><input type=\"radio\" name=\"%s\" value=\"%s\" %s />%s</label><br>", array(
                     $args['name'],
                     $option['value'],
                     checked(get_option($args['name'], false), $option['value'], false),
@@ -125,10 +149,21 @@ class PluginSettings implements BaseSettingsInterface, PluginSettingsInterface
                 ));
             }
 
-            return $return;
+            echo "<fieldset><p>$return</p></fieldset>";
+            return true;
         }
 
-        throw new \Exception(__('Not enough options', self::PLUGIN_SLUG));
+        throw new \Exception(__('Not enough options', \wrp\ReadingProgress::PLUGIN_SLUG));
+    }
+
+    public function renderColorpicker(array $args): bool {
+
+        vprintf("<input type=\"text\" class=\"color-picker\" data-alpha=\"true\" data-default-color=\"rgba(0,0,0,0)\" name=\"%s\" value=\"%s\"/>", array(
+            $args['name'],
+            $args['value']
+        ));
+
+        return true;
     }
 }
 
