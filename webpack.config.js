@@ -32,7 +32,7 @@ module.exports = {
             ,
             {
                 test: /\.scss$/,
-                include: [path.resolve(__dirname, 'src', 'public', 'scss')],
+                include: [path.resolve(__dirname, 'src', 'public', 'scss'), path.resolve(__dirname, 'src', 'admin', 'scss')],
                 use: extractPlugin.extract({
                     use: [
                         {

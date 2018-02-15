@@ -81,8 +81,10 @@ class ReadingProgress
 
     public function includeAdminJS(string $hook)
     {
-        if ($hook == 'options-reading.php')
-            wp_enqueue_script(__CLASS__ . 'admin', plugins_url('/admin/js/bundle.js', __FILE__), null, self::PLUGIN_VERSION, true);
+        if ($hook == 'options-reading.php') {
+            wp_enqueue_script(__CLASS__ . 'admin', plugins_url('/admin/js/bundle.js', __FILE__), array('jquery', 'iris'), self::PLUGIN_VERSION, true);
+            wp_enqueue_style('CSS', plugins_url('/admin/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
+        }
     }
 
     public function loadPluginTranslations()
