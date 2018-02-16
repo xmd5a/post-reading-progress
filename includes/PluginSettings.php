@@ -158,9 +158,9 @@ class PluginSettings
 
     public function renderColorpicker(array $args): bool {
 
-        vprintf("<input type=\"text\" class=\"color-picker\" data-alpha=\"true\" data-default-color=\"rgba(0,0,0,0)\" name=\"%s\" value=\"%s\"/>", array(
+        vprintf("<input type=\"text\" class=\"color-picker\" name=\"%s\" value=\"%s\"/>", array(
             $args['name'],
-            $args['value']
+            get_option($args['name'], false)
         ));
 
         return true;

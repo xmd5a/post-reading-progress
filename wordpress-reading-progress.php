@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
 require_once('includes/PluginOptions.php');
 require_once('includes/PluginSettings.php');
 
-class ReadingProgress
+final class ReadingProgress
 {
     const PLUGIN_VERSION = '1.0.0';
     const PLUGIN_NAME = 'Post Reading Progress';
@@ -75,8 +75,12 @@ class ReadingProgress
 
     public function includeJS()
     {
-        wp_enqueue_script(__CLASS__, plugins_url('/public/js/bundle.js', __FILE__), null, self::PLUGIN_VERSION, true);
-        wp_enqueue_style('CSS', plugins_url('/public/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
+        if (\wrp\includes\PluginOptions::getEnablePluginOption() == 1) {
+            if (in_array(get_post_type(), \wrp\includes\PluginOptions::getEnabledPostTypes())) {
+                wp_enqueue_script(__CLASS__, plugins_url('/public/js/bundle.js', __FILE__), null, self::PLUGIN_VERSION, true);
+                wp_enqueue_style('CSS', plugins_url('/public/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
+            }
+        }
     }
 
     public function includeAdminJS(string $hook)
@@ -94,8 +98,18 @@ class ReadingProgress
 
     public function setPostEndMarker(string $content): string
     {
-        if (is_single())
-            return $content . '<div id="wordpress-reading-progress-end"></div>';
+        //check plugin is enabled
+        $enabled = \wrp\includes\PluginOptions::getEnablePluginOption() == 1;
+
+        if ($enabled === true) {
+            //check current post type should have progress reading bar
+            $postTypeActive = in_array(get_post_type(), \wrp\includes\PluginOptions::getEnabledPostTypes());
+
+            if ((is_single() && $postTypeActive === true) or (is_page() && $postTypeActive)) {
+                return $content . '<div id="wordpress-reading-progress-end"></div>';
+            }
+
+        }
 
         return $content;
     }

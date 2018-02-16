@@ -46,7 +46,7 @@ abstract class PluginOptions
             'type' => 'colorpicker',
             'page' => 'reading',
             'callback' => 'renderColorpicker',
-            'defaultValue' => null,
+            'defaultValue' => '#3C8E88',
             'options' => null
         ),
         'wordpress-reading-bar-foreground' => array(
@@ -54,7 +54,7 @@ abstract class PluginOptions
             'type' => 'colorpicker',
             'page' => 'reading',
             'callback' => 'renderColorpicker',
-            'defaultValue' => null,
+            'defaultValue' => '#FFFFFF',
             'options' => null
         )
     );
@@ -75,6 +75,17 @@ abstract class PluginOptions
             );
         }
         return $options;
+    }
+
+    public static function getEnablePluginOption(): string
+    {
+        return get_option('wordpress-reading-bar-enable-plugin', false);
+    }
+
+    public static function getEnabledPostTypes(): array
+    {
+        $cpt = get_option('wordpress-reading-bar-enabled-post-types', false);
+        return is_array($cpt) ? $cpt : array();
     }
 }
 
