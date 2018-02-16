@@ -1,9 +1,14 @@
 (function ($) {
-    $('.color-picker').iris({
-        change: function(event, ui) {
-            $(event.target).css({
-                'background': ui.color.toString()
-            });
-        }
+    $('.color-picker').each(function() {
+        $(this).iris({
+            hide: false,
+            change: function (event, ui) {
+                $(event.target).css({
+                    'background': ui.color.toString()
+                });
+            }
+        }).css({
+            "background": $(this).val()
+        });
     });
 })(jQuery);

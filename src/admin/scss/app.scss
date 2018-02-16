@@ -1,12 +1,6 @@
 .color-picker {
-  text-indent: -9999px;
-  width: 40px;
+  width: 200px;
   height: 40px;
   border: none;
   cursor: pointer;
-
-  + .iris-picker {
-    position: absolute;
-    z-index: 2;
-  }
 }
