@@ -82,10 +82,20 @@ abstract class PluginOptions
         return get_option('wordpress-reading-bar-enable-plugin', false);
     }
 
-    public static function getEnabledPostTypes(): array
+    public static function getEnabledPostTypesOption(): array
     {
         $cpt = get_option('wordpress-reading-bar-enabled-post-types', false);
         return is_array($cpt) ? $cpt : array();
+    }
+
+    public static function getBackgroundOption(): string
+    {
+        return get_option('wordpress-reading-bar-background', false);
+    }
+
+    public static function getForegroundOption(): string
+    {
+        return get_option('wordpress-reading-bar-foreground', false);
     }
 }
 

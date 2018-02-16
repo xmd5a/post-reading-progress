@@ -1,5 +1,4 @@
 @import "mixins";
-@import "variables";
 
 #wordpress-reading-progress {
 
@@ -8,9 +7,8 @@
     z-index: 100000;
     top: 0;
     left: 0;
-    height: 40px;
+    height: 6px;
     width: 100%;
-    background: $black;
     @include animate(.2s, .0s, transform, ease);
 
     &.hide {
@@ -24,7 +22,6 @@
       top: 0;
       height: inherit;
       width: 0;
-      background: $gray;
       @include animate(.2s, .0s, width, linear);
     }
   }
