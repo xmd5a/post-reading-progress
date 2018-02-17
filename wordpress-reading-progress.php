@@ -94,9 +94,11 @@ final class ReadingProgress
 
     public function printPluginOptionsCSS()
     {
-        vprintf("<style type=\"text/css\">#wordpress-reading-progress-bar{background: %s;}#wordpress-reading-progress-bar>div{background: %s;}</style>", array(
+        vprintf("<style type=\"text/css\">#wordpress-reading-progress-bar{%s: 0;background: %s;}#wordpress-reading-progress-bar>div{background: %s;}</style>", array(
+            \wrp\includes\PluginOptions::getPositionOption(),
             \wrp\includes\PluginOptions::getBackgroundOption(),
-            \wrp\includes\PluginOptions::getForegroundOption()
+            \wrp\includes\PluginOptions::getForegroundOption(),
+
         ));
     }
 

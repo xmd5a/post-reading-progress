@@ -97,6 +97,11 @@ abstract class PluginOptions
     {
         return get_option('wordpress-reading-bar-foreground', false);
     }
+
+    public static function getPositionOption(): string
+    {
+        return get_option('wordpress-reading-bar-position', false);
+    }
 }
 
 ?>
