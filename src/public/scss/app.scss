@@ -9,8 +9,16 @@
     width: 100%;
     @include animate(.2s, .0s, transform, ease);
 
-    &.hide {
+    &.hide-top, &.hide-bottom {
+      @include animate(.2s, .5s, transform, ease);
+    }
+
+    &.hide-top {
       transform: translateY(-100%);
+    }
+
+    &.hide-bottom {
+      transform: translateY(100%);
     }
 
     > div {

@@ -44,13 +44,19 @@ final class PluginOptions
             )
         ));
 
+        $this->setOption('wordpress-reading-bar-autohide', array(
+            'title' => 'Hide progress bar after reading complete',
+            'type' => 'slider',
+            'page' => 'reading',
+            'callback' => 'renderInputCheckbox',
+        ));
+
         $this->setOption('wordpress-reading-bar-height', array(
             'title' => 'Progress bar height',
             'type' => 'slider',
             'page' => 'reading',
             'callback' => 'renderSlider',
             'defaultValue' => '6px',
-            'options' => null
         ));
 
         $this->setOption('wordpress-reading-bar-enabled-post-types', array(
@@ -68,7 +74,6 @@ final class PluginOptions
             'page' => 'reading',
             'callback' => 'renderColorpicker',
             'defaultValue' => '#3C8E88',
-            'options' => null
         ));
 
         $this->setOption('wordpress-reading-bar-foreground', array(
@@ -77,7 +82,6 @@ final class PluginOptions
             'page' => 'reading',
             'callback' => 'renderColorpicker',
             'defaultValue' => '#FFFFFF',
-            'options' => null
         ));
     }
 

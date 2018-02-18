@@ -45,7 +45,9 @@ class WordpressReadingProgress {
 
         if (currentPercentPosition > 100) {
             currentPercentPosition = 100;
-            !this.scrollbarElement.className.indexOf('hide') ? null : this.scrollbarElement.className = 'hide';
+            if ((this.scrollbarElement.className.indexOf('hide-top') || this.scrollbarElement.className.indexOf('hide-bottom')) && window.wordpressReadingBarAutohide == '1') {
+                window.getComputedStyle(this.scrollbarElement).getPropertyValue('top') == '0px' ? this.scrollbarElement.className = 'hide-top' : this.scrollbarElement.className = 'hide-bottom';
+            }
         } else {
             this.scrollbarElement.className = '';
         }
