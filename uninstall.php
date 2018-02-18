@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace wrp;
 
+use wrp\includes\PluginOptions;
+
 if (!defined('WP_UNINSTALL_PLUGIN')) {
     die;
 }
@@ -13,7 +15,9 @@ class ReadingProgressUninstall
 {
     public function __construct()
     {
-        foreach (includes\PluginOptions::getOptions() as $optionID => $option) {
+        $pluginOptions = PluginOptions::getInstance();
+
+        foreach ($pluginOptions->getAllOptions() as $optionID => $option) {
             delete_option($optionID);
         }
     }

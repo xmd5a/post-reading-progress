@@ -6,7 +6,6 @@
     position: fixed;
     z-index: 100000;
     left: 0;
-    height: 6px;
     width: 100%;
     @include animate(.2s, .0s, transform, ease);
 

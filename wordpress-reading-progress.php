@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace wrp;
 
+use wrp\includes\PluginOptions;
+
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -29,9 +31,14 @@ final class ReadingProgress
     const PLUGIN_NAME = 'Post Reading Progress';
     const PLUGIN_SLUG = 'post-reading-progress';
 
+    private $pluginOptions;
+
     public function __construct()
     {
-        //initialize plugin settings
+        //init plugin options
+        $this->pluginOptions = PluginOptions::getInstance();
+
+        //init plugin settings
         $pluginSettings = new includes\PluginSettings();
         $pluginSettings->addSection(
             'post-reading-progress-settings',
@@ -43,7 +50,7 @@ final class ReadingProgress
         );
 
         try {
-            foreach (\wrp\includes\PluginOptions::getOptions() as $optionID => $option) {
+            foreach ($this->pluginOptions->getAllOptions() as $optionID => $option) {
                 $pluginSettings->addSettingsField(
                     $optionID,
                     $option['title'],
@@ -76,8 +83,8 @@ final class ReadingProgress
 
     public function includeJS()
     {
-        if (\wrp\includes\PluginOptions::getEnablePluginOption() == 1) {
-            if (in_array(get_post_type(), \wrp\includes\PluginOptions::getEnabledPostTypesOption())) {
+        if ($this->pluginOptions->getOption('wordpress-reading-bar-enable-plugin') == 1) {
+            if (in_array(get_post_type(), $this->pluginOptions->getOption('wordpress-reading-bar-enabled-post-types'))) {
                 wp_enqueue_script(__CLASS__, plugins_url('/public/js/bundle.js', __FILE__), null, self::PLUGIN_VERSION, true);
                 wp_enqueue_style('CSS', plugins_url('/public/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
             }
@@ -95,10 +102,10 @@ final class ReadingProgress
     public function printPluginOptionsCSS()
     {
         vprintf("<style type=\"text/css\">#wordpress-reading-progress-bar{%s: 0;background: %s;height: %s}#wordpress-reading-progress-bar>div{background: %s;}</style>", array(
-            \wrp\includes\PluginOptions::getPositionOption(),
-            \wrp\includes\PluginOptions::getBackgroundOption(),
-            \wrp\includes\PluginOptions::getHeightOption(),
-            \wrp\includes\PluginOptions::getForegroundOption()
+            $this->pluginOptions->getOption('wordpress-reading-bar-position'),
+            $this->pluginOptions->getOption('wordpress-reading-bar-background'),
+            $this->pluginOptions->getOption('wordpress-reading-bar-height'),
+            $this->pluginOptions->getOption('wordpress-reading-bar-foreground')
         ));
     }
 
@@ -110,11 +117,11 @@ final class ReadingProgress
     public function setPostEndMarker(string $content): string
     {
         //check plugin is enabled
-        $enabled = \wrp\includes\PluginOptions::getEnablePluginOption() == 1;
+        $enabled = $this->pluginOptions->getOption('wordpress-reading-bar-enable-plugin') == 1;
 
         if ($enabled === true) {
             //check current post type should have progress reading bar
-            $postTypeActive = in_array(get_post_type(), \wrp\includes\PluginOptions::getEnabledPostTypesOption());
+            $postTypeActive = in_array(get_post_type(), $this->pluginOptions->getOption('wordpress-reading-bar-enabled-post-types'));
 
             if ((is_single() && $postTypeActive === true) or (is_page() && $postTypeActive)) {
                 return $content . '<div id="wordpress-reading-progress-end"></div>';
