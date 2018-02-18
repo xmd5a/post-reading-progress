@@ -33,6 +33,14 @@ abstract class PluginOptions
                 )
             )
         ),
+        'wordpress-reading-bar-height' => array(
+            'title' => 'Progress bar height',
+            'type' => 'slider',
+            'page' => 'reading',
+            'callback' => 'renderSlider',
+            'defaultValue' => '6px',
+            'options' => null
+        ),
         'wordpress-reading-bar-enabled-post-types' => array(
             'title' => 'Post types',
             'type' => 'checkbox',
@@ -101,6 +109,11 @@ abstract class PluginOptions
     public static function getPositionOption(): string
     {
         return get_option('wordpress-reading-bar-position', false);
+    }
+
+    public static function getHeightOption(): string
+    {
+        return get_option('wordpress-reading-bar-height', false);
     }
 }
 

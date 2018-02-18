@@ -10,7 +10,7 @@ class PluginSettings
 {
     private $settingsFields = array();
     private $settingsSections = array();
-    private $fieldTypes = array('text', 'checkbox', 'radio', 'colorpicker');
+    private $fieldTypes = array('text', 'checkbox', 'radio', 'colorpicker', 'slider');
 
     public function addSection(
         string $id,
@@ -108,8 +108,7 @@ class PluginSettings
     {
         $options = get_option($args['name'], false) != '' ? get_option($args['name'], false) : array();
 
-        if(is_array($args['options']) && count($args['options']) > 1)
-        {
+        if (is_array($args['options']) && count($args['options']) > 1) {
             $return = null;
 
             foreach ($args['options'] as $option) {
@@ -156,9 +155,19 @@ class PluginSettings
         throw new \Exception(__('Not enough options', \wrp\ReadingProgress::PLUGIN_SLUG));
     }
 
-    public function renderColorpicker(array $args): bool {
-
+    public function renderColorpicker(array $args): bool
+    {
         vprintf("<input type=\"text\" class=\"color-picker\" name=\"%s\" value=\"%s\"/>", array(
+            $args['name'],
+            get_option($args['name'], false)
+        ));
+
+        return true;
+    }
+
+    public function renderSlider(array $args): bool
+    {
+        vprintf("<div class=\"slide\"><div class=\"ui-slider-handle\"><span class=\"slide__handle\">80px</span></div></div><input type=\"hidden\" name=\"%s\" value=\"%s\" />", array(
             $args['name'],
             get_option($args['name'], false)
         ));

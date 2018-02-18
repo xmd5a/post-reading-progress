@@ -87,18 +87,18 @@ final class ReadingProgress
     public function includeAdminJS(string $hook)
     {
         if ($hook == 'options-reading.php') {
-            wp_enqueue_script(__CLASS__ . 'admin', plugins_url('/admin/js/bundle.js', __FILE__), array('jquery', 'iris'), self::PLUGIN_VERSION, true);
+            wp_enqueue_script(__CLASS__ . 'admin', plugins_url('/admin/js/bundle.js', __FILE__), array('jquery', 'iris', 'jquery-ui-slider'), self::PLUGIN_VERSION, true);
             wp_enqueue_style('CSS', plugins_url('/admin/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
         }
     }
 
     public function printPluginOptionsCSS()
     {
-        vprintf("<style type=\"text/css\">#wordpress-reading-progress-bar{%s: 0;background: %s;}#wordpress-reading-progress-bar>div{background: %s;}</style>", array(
+        vprintf("<style type=\"text/css\">#wordpress-reading-progress-bar{%s: 0;background: %s;height: %s}#wordpress-reading-progress-bar>div{background: %s;}</style>", array(
             \wrp\includes\PluginOptions::getPositionOption(),
             \wrp\includes\PluginOptions::getBackgroundOption(),
-            \wrp\includes\PluginOptions::getForegroundOption(),
-
+            \wrp\includes\PluginOptions::getHeightOption(),
+            \wrp\includes\PluginOptions::getForegroundOption()
         ));
     }
 
