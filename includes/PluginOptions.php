@@ -23,7 +23,7 @@ final class PluginOptions
             'type' => 'checkbox',
             'page' => 'reading',
             'callback' => 'renderInputCheckbox',
-            'defaultValue' => null
+            'defaultValue' => '1'
         ));
 
         $this->setOption('wordpress-reading-bar-position', array(
@@ -64,7 +64,7 @@ final class PluginOptions
             'type' => 'checkbox',
             'page' => 'reading',
             'callback' => 'renderInputCheckbox',
-            'defaultValue' => null,
+            'defaultValue' => array('post'),
             'options' => $this->getPostTypes()
         ));
 

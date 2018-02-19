@@ -58,8 +58,6 @@ class PluginSettings
 
             return true;
         }
-
-        throw new \Exception(__('Invalid input type.', self::PLUGIN_SLUG));
     }
 
     public function init()
