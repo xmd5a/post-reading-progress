@@ -26,8 +26,8 @@ All customizable options are available under **settings -> readings** section.
 ## Screenshots
 
 ### Example of usage:
-![Frontend image](https://github.com/xmd5a/wordpress-reading-progress/tree/master/docs/screenshot-2.png)
+![Frontend image](https://raw.githubusercontent.com/xmd5a/wordpress-reading-progress/master/docs/screenshot-2.png)
 
 ### Admin panel options:
-![Admin panel image](https://github.com/xmd5a/wordpress-reading-progress/tree/master/docs/screenshot-1.png)
+![Admin panel image](https://raw.githubusercontent.com/xmd5a/wordpress-reading-progress/master/docs/screenshot-1.png)
 
