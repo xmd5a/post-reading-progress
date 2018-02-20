@@ -1,4 +1,4 @@
-# Wordpress reading progress
+# Post Reading Progress
 
 ## Description
 
