@@ -1,0 +1,65 @@
+# Copyright (C) 2018 Piotr Szarmach
+# This file is distributed under the GPLv3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Post Reading Progress\n"
+"POT-Creation-Date: 2018-02-19 20:07+0100\n"
+"PO-Revision-Date: 2018-02-20 10:17+0100\n"
+"Last-Translator: Piotr Szarmach <zakaru@gmail.com>\n"
+"Language-Team: \n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: includes\n"
+"X-Poedit-SearchPath-1: wordpress-reading-progress.php\n"
+"X-Poedit-SearchPath-2: uninstall.php\n"
+
+#: includes/PluginOptions.php:22
+msgid "Enable plugin"
+msgstr "Aktywuj wtyczkę"
+
+#: includes/PluginOptions.php:30
+msgid "Progress bar position"
+msgstr "Pozycja paska postępu"
+
+#: includes/PluginOptions.php:38
+msgid "Top of the page"
+msgstr "Góra strony"
+
+#: includes/PluginOptions.php:42
+msgid "Bottom of the page"
+msgstr "Dół strony"
+
+#: includes/PluginOptions.php:48
+msgid "Hide progress bar after reading complete"
+msgstr "Ukryj pasek po zakończeniu czytania"
+
+#: includes/PluginOptions.php:55
+msgid "Progress bar height"
+msgstr "Wysokość paska"
+
+#: includes/PluginOptions.php:63
+msgid "Post types"
+msgstr "Typy postów"
+
+#: includes/PluginOptions.php:72
+msgid "Reading progress bar background"
+msgstr "Kolor tła paska postępu"
+
+#: includes/PluginOptions.php:80
+msgid "Reading progress bar foreground"
+msgstr "Kolor paska postępu"
+
+#: wordpress-reading-progress.php:48
+msgid "Post Reading Progress Settings"
+msgstr "Ustawienia Post Reading Progress"
+
+#: wordpress-reading-progress.php:50
+msgid "Here you can customize plugin options."
+msgstr "Tutaj możesz edytować ustawienia wtyczki."

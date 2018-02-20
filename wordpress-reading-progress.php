@@ -42,12 +42,12 @@ final class ReadingProgress
         register_activation_hook(__FILE__, array($this, 'activatePlugin'));
 
         //init plugin settings
-        $pluginSettings = new includes\PluginSettings();
+        $pluginSettings = new includes\PluginSettings(self::PLUGIN_SLUG);
         $pluginSettings->addSection(
             'post-reading-progress-settings',
-            'Post Reading Progress Settings',
+            __('Post Reading Progress Settings', self::PLUGIN_SLUG),
             function () {
-                printf('<p>%s</p>', __('Short pointless description', 'post-reading-progress'));
+                printf('<p>%s</p>', __('Here you can customize plugin options.', self::PLUGIN_SLUG));
             },
             'reading'
         );
@@ -86,7 +86,7 @@ final class ReadingProgress
     public function activatePlugin()
     {
         foreach ($this->pluginOptions->getAllOptions() as $optionID => $option) {
-            add_option( $optionID, $option['defaultValue'], '', 'yes' );
+            add_option($optionID, $option['defaultValue'], '', 'yes');
         }
     }
 
@@ -95,7 +95,7 @@ final class ReadingProgress
         if ($this->pluginOptions->getOption('wordpress-reading-bar-enable-plugin') == 1) {
             if (in_array(get_post_type(), $this->pluginOptions->getOption('wordpress-reading-bar-enabled-post-types'))) {
                 wp_enqueue_script(__CLASS__, plugins_url('/public/js/bundle.js', __FILE__), null, self::PLUGIN_VERSION, true);
-                wp_enqueue_style('CSS', plugins_url('/public/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
+                wp_enqueue_style(__CLASS__ . 'css', plugins_url('/public/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
             }
         }
     }
@@ -104,7 +104,7 @@ final class ReadingProgress
     {
         if ($hook == 'options-reading.php') {
             wp_enqueue_script(__CLASS__ . 'admin', plugins_url('/admin/js/bundle.js', __FILE__), array('jquery', 'iris', 'jquery-ui-slider'), self::PLUGIN_VERSION, true);
-            wp_enqueue_style('CSS', plugins_url('/admin/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
+            wp_enqueue_style(__CLASS__ . 'cssadmin', plugins_url('/admin/css/bundle.css', __FILE__), null, self::PLUGIN_VERSION, 'all');
         }
     }
 
