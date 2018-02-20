@@ -1,12 +1,24 @@
+@import url("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css");
+
 .color-picker {
-  text-indent: -9999px;
-  width: 40px;
+  width: 200px;
   height: 40px;
   border: none;
   cursor: pointer;
+}
 
-  + .iris-picker {
-    position: absolute;
-    z-index: 2;
+.slide {
+  width: 200px;
+
+  .ui-slider-handle {
+    width: 2.5em;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  &__handle {
+    display: block;
+    font-size: 10px;
+    margin-top: 4px;
   }
 }

@@ -8,9 +8,14 @@ if (!defined('ABSPATH')) {
 
 class PluginSettings
 {
+    private $textDomain;
     private $settingsFields = array();
     private $settingsSections = array();
-    private $fieldTypes = array('text', 'checkbox', 'radio', 'colorpicker');
+    private $fieldTypes = array('text', 'checkbox', 'radio', 'colorpicker', 'slider');
+
+    public function __construct(string $textDomain) {
+        $this->textDomain = $textDomain;
+    }
 
     public function addSection(
         string $id,
@@ -58,8 +63,6 @@ class PluginSettings
 
             return true;
         }
-
-        throw new \Exception(__('Invalid input type.', self::PLUGIN_SLUG));
     }
 
     public function init()
@@ -68,7 +71,7 @@ class PluginSettings
             foreach ($this->settingsSections as $section) {
                 add_settings_section(
                     $section['id'],
-                    $section['title'],
+                    __($section['title'], $this->textDomain),
                     $section['callback'],
                     $section['page']
                 );
@@ -77,7 +80,7 @@ class PluginSettings
             foreach ($this->settingsFields as $field) {
                 add_settings_field(
                     $field['id'],
-                    $field['title'],
+                    __($field['title'], $this->textDomain),
                     $field['callback'],
                     $field['page'],
                     $field['section'],
@@ -96,8 +99,8 @@ class PluginSettings
     {
         vprintf("<input type=\"%s\" id=\"%s\" name=\"%s\" value=\"%s\" />", array(
             $args['type'],
-            $args[name],
-            $args[name],
+            $args['name'],
+            $args['name'],
             get_option($args['name'], false)
         ));
 
@@ -108,8 +111,7 @@ class PluginSettings
     {
         $options = get_option($args['name'], false) != '' ? get_option($args['name'], false) : array();
 
-        if(is_array($args['options']) && count($args['options']) > 1)
-        {
+        if (is_array($args['options']) && count($args['options']) > 1) {
             $return = null;
 
             foreach ($args['options'] as $option) {
@@ -145,22 +147,30 @@ class PluginSettings
                     $args['name'],
                     $option['value'],
                     checked(get_option($args['name'], false), $option['value'], false),
-                    $option['label']
+                    __($option['label'], $this->textDomain)
                 ));
             }
 
             echo "<fieldset><p>$return</p></fieldset>";
             return true;
         }
-
-        throw new \Exception(__('Not enough options', \wrp\ReadingProgress::PLUGIN_SLUG));
     }
 
-    public function renderColorpicker(array $args): bool {
-
-        vprintf("<input type=\"text\" class=\"color-picker\" data-alpha=\"true\" data-default-color=\"rgba(0,0,0,0)\" name=\"%s\" value=\"%s\"/>", array(
+    public function renderColorpicker(array $args): bool
+    {
+        vprintf("<input type=\"text\" class=\"color-picker\" name=\"%s\" value=\"%s\"/>", array(
             $args['name'],
-            $args['value']
+            get_option($args['name'], false)
+        ));
+
+        return true;
+    }
+
+    public function renderSlider(array $args): bool
+    {
+        vprintf("<div class=\"slide\"><div class=\"ui-slider-handle\"><span class=\"slide__handle\">80px</span></div></div><input type=\"hidden\" name=\"%s\" value=\"%s\" />", array(
+            $args['name'],
+            get_option($args['name'], false)
         ));
 
         return true;

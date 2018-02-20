@@ -6,17 +6,27 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-abstract class PluginOptions
+final class PluginOptions
 {
-    private static $options = array(
-        'wordpress-reading-bar-enable-plugin' => array(
+    private static $instance;
+    private $options = array();
+
+    private function __construct()
+    {
+        $this->setInitOptions();
+    }
+
+    private function setInitOptions()
+    {
+        $this->setOption('wordpress-reading-bar-enable-plugin', array(
             'title' => 'Enable plugin',
             'type' => 'checkbox',
             'page' => 'reading',
             'callback' => 'renderInputCheckbox',
-            'defaultValue' => null
-        ),
-        'wordpress-reading-bar-position' => array(
+            'defaultValue' => '1'
+        ));
+
+        $this->setOption('wordpress-reading-bar-position', array(
             'title' => 'Progress bar position',
             'type' => 'radio',
             'page' => 'reading',
@@ -32,37 +42,47 @@ abstract class PluginOptions
                     'label' => 'Bottom of the page'
                 )
             )
-        ),
-        'wordpress-reading-bar-enabled-post-types' => array(
+        ));
+
+        $this->setOption('wordpress-reading-bar-autohide', array(
+            'title' => 'Hide progress bar after reading complete',
+            'type' => 'slider',
+            'page' => 'reading',
+            'callback' => 'renderInputCheckbox',
+        ));
+
+        $this->setOption('wordpress-reading-bar-height', array(
+            'title' => 'Progress bar height',
+            'type' => 'slider',
+            'page' => 'reading',
+            'callback' => 'renderSlider',
+            'defaultValue' => '6px',
+        ));
+
+        $this->setOption('wordpress-reading-bar-enabled-post-types', array(
             'title' => 'Post types',
             'type' => 'checkbox',
             'page' => 'reading',
             'callback' => 'renderInputCheckbox',
-            'defaultValue' => null,
-            'options' => null
-        ),
-        'wordpress-reading-bar-background' => array(
+            'defaultValue' => array('post'),
+            'options' => $this->getPostTypes()
+        ));
+
+        $this->setOption('wordpress-reading-bar-background', array(
             'title' => 'Reading progress bar background',
             'type' => 'colorpicker',
             'page' => 'reading',
             'callback' => 'renderColorpicker',
-            'defaultValue' => null,
-            'options' => null
-        ),
-        'wordpress-reading-bar-foreground' => array(
+            'defaultValue' => '#3C8E88',
+        ));
+
+        $this->setOption('wordpress-reading-bar-foreground', array(
             'title' => 'Reading progress bar foreground',
             'type' => 'colorpicker',
             'page' => 'reading',
             'callback' => 'renderColorpicker',
-            'defaultValue' => null,
-            'options' => null
-        )
-    );
-
-    public static function getOptions(): array
-    {
-        self::$options['wordpress-reading-bar-enabled-post-types']['options'] = self::getPostTypes();
-        return self::$options;
+            'defaultValue' => '#FFFFFF',
+        ));
     }
 
     private static function getPostTypes(): array
@@ -75,6 +95,32 @@ abstract class PluginOptions
             );
         }
         return $options;
+    }
+
+    public static function getInstance()
+    {
+        if (empty(self::$instance)) {
+            self::$instance = new PluginOptions();
+        }
+
+        return self::$instance;
+    }
+
+    public function setOption(string $key, array $options)
+    {
+        $this->options[$key] = $options;
+    }
+
+    public function getOption(string $key)
+    {
+        if ($this->options[$key]) {
+            return get_option($key, false);
+        }
+    }
+
+    public function getAllOptions()
+    {
+        return $this->options;
     }
 }
 
