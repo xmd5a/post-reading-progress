@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 /**
  * Plugin Name: Post Reading Progress
  * Plugin URI: http:/piotrszarmach.com
- * Description: Add reading progress bar on top or bottom of page and post reading time info on listing pages.
+ * Description: Add reading progress bar on top or bottom of single post.
  * Author: Piotr Szarmach
  * Text Domain: post-reading-progress
  * Domain Path: /languages
