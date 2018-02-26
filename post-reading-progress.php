@@ -22,8 +22,6 @@ if (!defined('ABSPATH')) {
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-require_once('includes/PluginOptions.php');
-require_once('includes/PluginSettings.php');
-require_once('includes/ReadingProgress.php');
+require_once('vendor/autoload.php');
 
-$readingProgress = new ReadingProgress();
+$readingProgress = new includes\ReadingProgress();

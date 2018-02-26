@@ -18,7 +18,7 @@ final class ReadingProgress
         register_activation_hook(__FILE__, array($this, 'activatePlugin'));
 
         //init plugin settings
-        $pluginSettings = new includes\PluginSettings(self::PLUGIN_SLUG);
+        $pluginSettings = new PluginSettings(self::PLUGIN_SLUG);
         $pluginSettings->addSection(
             'post-reading-progress-settings',
             __('Post Reading Progress Settings', self::PLUGIN_SLUG),
@@ -75,14 +75,14 @@ final class ReadingProgress
             )) {
                 wp_enqueue_script(
                     __CLASS__,
-                    plugins_url('/public/js/bundle.js', __FILE__),
+                    plugins_url(self::PLUGIN_SLUG . '/public/js/bundle.js'),
                     null,
                     self::PLUGIN_VERSION,
                     true
                 );
                 wp_enqueue_style(
                     __CLASS__ . 'css',
-                    plugins_url('/public/css/bundle.css', __FILE__),
+                    plugins_url(self::PLUGIN_SLUG . '/public/css/bundle.css'),
                     null,
                     self::PLUGIN_VERSION,
                     'all'
@@ -96,14 +96,14 @@ final class ReadingProgress
         if ($hook == 'options-reading.php') {
             wp_enqueue_script(
                 __CLASS__ . 'admin',
-                plugins_url('/admin/js/bundle.js', __FILE__),
+                plugins_url(self::PLUGIN_SLUG . '/admin/js/bundle.js'),
                 array('jquery', 'iris', 'jquery-ui-slider'),
                 self::PLUGIN_VERSION,
                 true
             );
             wp_enqueue_style(
                 __CLASS__ . 'cssadmin',
-                plugins_url('/admin/css/bundle.css', __FILE__),
+                plugins_url(self::PLUGIN_SLUG . '/admin/css/bundle.css'),
                 null,
                 self::PLUGIN_VERSION,
                 'all'

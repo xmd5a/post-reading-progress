@@ -9,7 +9,6 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
     die;
 }
 
-require_once('includes/PluginOptions.php');
-require_once('includes/PluginUninstall.php');
+require_once('vendor/autoload.php');
 
 $uninstall = new ReadingProgressUninstall;
