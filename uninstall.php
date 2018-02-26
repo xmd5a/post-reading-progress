@@ -10,17 +10,6 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 }
 
 require_once('includes/PluginOptions.php');
-
-class ReadingProgressUninstall
-{
-    public function __construct()
-    {
-        $pluginOptions = PluginOptions::getInstance();
-
-        foreach ($pluginOptions->getAllOptions() as $optionID => $option) {
-            delete_option($optionID);
-        }
-    }
-}
+require_once('includes/PluginUninstall.php');
 
 $uninstall = new ReadingProgressUninstall;

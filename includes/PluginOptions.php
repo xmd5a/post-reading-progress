@@ -2,10 +2,6 @@
 
 namespace wrp\includes;
 
-if (!defined('ABSPATH')) {
-    exit;
-}
-
 final class PluginOptions
 {
     private static $instance;
@@ -123,5 +119,3 @@ final class PluginOptions
         return $this->options;
     }
 }
-
-?>
