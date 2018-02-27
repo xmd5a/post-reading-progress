@@ -27,7 +27,7 @@ require_once('includes/PluginSettings.php');
 
 final class ReadingProgress
 {
-    const PLUGIN_VERSION = '1.0.0';
+    const PLUGIN_VERSION = '1.0.1';
     const PLUGIN_NAME = 'Post Reading Progress';
     const PLUGIN_SLUG = 'post-reading-progress';
 
