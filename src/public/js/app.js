@@ -2,6 +2,9 @@ class WordpressReadingProgress {
 
     constructor(element) {
         this.element = document.getElementById(element);
+        if (this.element === null || typeof this.element == 'undefined') {
+            return false;
+        }
         this.screenHeight = this.getScreenHeight();
         this.elementOffset = this.getElementOffset();
         this.scrollPosition = this.getScrollPosition();
