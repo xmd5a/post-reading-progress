@@ -36,6 +36,14 @@ final class PluginOptions
                 array(
                     'value' => 'bottom',
                     'label' => 'Bottom of the page'
+                ),
+                array(
+                    'value' => 'left',
+                    'label' => 'Left side of the page'
+                ),
+                array(
+                    'value' => 'right',
+                    'label' => 'Right side of the page'
                 )
             )
         ));
