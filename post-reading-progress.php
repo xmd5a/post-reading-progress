@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
  * Author: Piotr Szarmach
  * Text Domain: post-reading-progress
  * Domain Path: /languages
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author URI: http://piotrszarmach.com
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
