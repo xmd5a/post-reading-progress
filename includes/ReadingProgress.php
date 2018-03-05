@@ -121,8 +121,10 @@ final class ReadingProgress
     public function printPluginOptionsStyle()
     {
         $widthHeightOption = array('left', 'right');
-        $widthHeight = in_array($this->pluginOptions->getOption('wordpress-reading-bar-position'),
-            $widthHeightOption) ? 'width' : 'height';
+        $widthHeight = in_array(
+            $this->pluginOptions->getOption('wordpress-reading-bar-position'),
+            $widthHeightOption
+        ) ? 'width' : 'height';
 
         vprintf(
             "<style type=\"text/css\">#wordpress-reading-progress-bar{background: %s;%s: %s}
