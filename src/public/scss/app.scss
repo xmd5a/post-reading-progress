@@ -5,10 +5,16 @@
   &-bar {
     position: fixed;
     z-index: 100000;
-    @include animate(.2s, .0s, transform, ease);
+    @include animate(.2s, .0s, all, ease);
 
     &[class^="position"] {
-      @include animate(.2s, .5s, transform, ease);
+      @include animate(.2s, .5s, all, ease);
+    }
+
+    &.position-top, &.position-bottom, &.position-left, &.position-right {
+      &.fadeOut {
+        opacity: 0;
+      }
     }
 
     &.position-top, &.position-bottom {
@@ -32,7 +38,7 @@
     &.position-top {
       top: 0;
 
-      &.hide {
+      &.slide {
         transform: translateY(-100%);
       }
     }
@@ -40,7 +46,7 @@
     &.position-right {
       right: 0;
 
-      &.hide {
+      &.slide {
         transform: translateX(100%);
       }
     }
@@ -48,7 +54,7 @@
     &.position-bottom {
       bottom: 0;
 
-      &.hide {
+      &.slide {
         transform: translateY(100%);
       }
     }
@@ -56,7 +62,7 @@
     &.position-left {
       left: 0;
 
-      &.hide {
+      &.slide {
         transform: translateX(-100%);
       }
     }

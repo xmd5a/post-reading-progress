@@ -82,8 +82,9 @@ final class ReadingProgress
                     'postReadingProgress',
                     array(
                         'position' => $this->pluginOptions->getOption('wordpress-reading-bar-position'),
-                        'wordpressReadingBarAutohide' =>
-                            $this->pluginOptions->getOption('wordpress-reading-bar-autohide')
+                        'autohide' => $this->pluginOptions->getOption('wordpress-reading-bar-autohide'),
+                        'autohideAnimation' =>
+                            $this->pluginOptions->getOption('wordpress-reading-bar-autohide-effect')
                     )
                 );
                 wp_enqueue_style(

@@ -50,12 +50,12 @@ class WordpressReadingProgress {
         if (currentPercentPosition > 100) {
             currentPercentPosition = 100;
 
-            if (postReadingProgress.wordpressReadingBarAutohide == '1') {
-                this.scrollbarElement.classList.add('hide');
+            if (postReadingProgress.autohide == '1') {
+                this.scrollbarElement.classList.add(postReadingProgress.autohideAnimation);
             }
         } else {
-            if (postReadingProgress.wordpressReadingBarAutohide == '1') {
-                this.scrollbarElement.classList.remove('hide');
+            if (postReadingProgress.autohide == '1') {
+                this.scrollbarElement.classList.remove(postReadingProgress.autohideAnimation);
             }
         }
 

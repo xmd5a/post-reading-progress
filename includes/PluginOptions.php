@@ -55,6 +55,24 @@ final class PluginOptions
             'callback' => 'renderInputCheckbox',
         ));
 
+        $this->setOption('wordpress-reading-bar-autohide-effect', array(
+            'title' => 'Progress bar position',
+            'type' => 'radio',
+            'page' => 'reading',
+            'callback' => 'renderInputRadio',
+            'defaultValue' => 'slide',
+            'options' => array(
+                array(
+                    'value' => 'slide',
+                    'label' => 'Slide'
+                ),
+                array(
+                    'value' => 'fadeOut',
+                    'label' => 'Fade out'
+                )
+            )
+        ));
+
         $this->setOption('wordpress-reading-bar-height', array(
             'title' => 'Progress bar height',
             'type' => 'slider',
