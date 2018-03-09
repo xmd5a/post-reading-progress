@@ -7,9 +7,10 @@ Wordpress plugin - articles reading progress bar.
 This plugin allows to display **reading progress** of single article using horizontal progress bar. You can customize following plugin options:
 
 * define which **post types** should be supported
-* **top** or **bottom** position display
+* **top**, **right**, **bottom** an **left** position display
 * setting progress bar height
 * hiding progress bar after reading complete
+* two autohide bar animations (slide, fade out)
 * setting background and foreground progress bar color
 
 ## Usage
