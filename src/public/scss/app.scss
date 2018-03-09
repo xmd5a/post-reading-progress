@@ -5,20 +5,66 @@
   &-bar {
     position: fixed;
     z-index: 100000;
-    left: 0;
-    width: 100%;
-    @include animate(.2s, .0s, transform, ease);
+    @include animate(.2s, .0s, all, ease);
 
-    &.hide-top, &.hide-bottom {
-      @include animate(.2s, .5s, transform, ease);
+    &[class^="position"] {
+      @include animate(.2s, .5s, all, ease);
     }
 
-    &.hide-top {
-      transform: translateY(-100%);
+    &.position-top, &.position-bottom, &.position-left, &.position-right {
+      &.fadeOut {
+        opacity: 0;
+      }
     }
 
-    &.hide-bottom {
-      transform: translateY(100%);
+    &.position-top, &.position-bottom {
+      left: 0;
+      width: 100%;
+
+      > div {
+        width: 0;
+      }
+    }
+
+    &.position-left, &.position-right {
+      top: 0;
+      height: 100vh;
+
+      > div {
+        width: 100%;
+      }
+    }
+
+    &.position-top {
+      top: 0;
+
+      &.slide {
+        transform: translateY(-100%);
+      }
+    }
+
+    &.position-right {
+      right: 0;
+
+      &.slide {
+        transform: translateX(100%);
+      }
+    }
+
+    &.position-bottom {
+      bottom: 0;
+
+      &.slide {
+        transform: translateY(100%);
+      }
+    }
+
+    &.position-left {
+      left: 0;
+
+      &.slide {
+        transform: translateX(-100%);
+      }
     }
 
     > div {
@@ -27,7 +73,6 @@
       left: 0;
       top: 0;
       height: inherit;
-      width: 0;
       @include animate(.2s, .0s, width, linear);
     }
   }

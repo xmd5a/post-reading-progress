@@ -2,10 +2,6 @@
 
 namespace wrp\includes;
 
-if (!defined('ABSPATH')) {
-    exit;
-}
-
 class PluginSettings
 {
     private $textDomain;
@@ -13,7 +9,8 @@ class PluginSettings
     private $settingsSections = array();
     private $fieldTypes = array('text', 'checkbox', 'radio', 'colorpicker', 'slider');
 
-    public function __construct(string $textDomain) {
+    public function __construct(string $textDomain)
+    {
         $this->textDomain = $textDomain;
     }
 
@@ -22,8 +19,7 @@ class PluginSettings
         string $title,
         callable $callback,
         string $page
-    ): bool
-    {
+    ): bool {
         $this->settingsSections[] = array(
             'id' => $id,
             'title' => $title,
@@ -40,10 +36,9 @@ class PluginSettings
         string $type,
         string $page,
         callable $callback,
-        $options = array(),
-        string $section
-    ): bool
-    {
+        string $section,
+        $options = array()
+    ): bool {
         //check input type
         if (in_array($type, $this->fieldTypes)) {
             $this->settingsFields[] = array(
@@ -115,12 +110,15 @@ class PluginSettings
             $return = null;
 
             foreach ($args['options'] as $option) {
-                $return .= vsprintf("<label><input type=\"checkbox\" name=\"%s[]\" value=\"%s\" %s />%s</label><br>", array(
-                    $args['name'],
-                    $option['value'],
-                    checked(!in_array($option['value'], $options), null, false),
-                    $option['label']
-                ));
+                $return .= vsprintf(
+                    "<label><input type=\"checkbox\" name=\"%s[]\" value=\"%s\" %s />%s</label><br>",
+                    array(
+                        $args['name'],
+                        $option['value'],
+                        checked(!in_array($option['value'], $options), null, false),
+                        $option['label']
+                    )
+                );
             }
 
             echo "<fieldset><p>" . $return . "</p></fieldset>";
@@ -168,13 +166,15 @@ class PluginSettings
 
     public function renderSlider(array $args): bool
     {
-        vprintf("<div class=\"slide\"><div class=\"ui-slider-handle\"><span class=\"slide__handle\">80px</span></div></div><input type=\"hidden\" name=\"%s\" value=\"%s\" />", array(
-            $args['name'],
-            get_option($args['name'], false)
-        ));
+        vprintf(
+            "<div class=\"slide\"><div class=\"ui-slider-handle\"><span class=\"slide__handle\">80px</span></div></div>
+			<input type=\"hidden\" name=\"%s\" value=\"%s\" />",
+            array(
+                $args['name'],
+                get_option($args['name'], false)
+            )
+        );
 
         return true;
     }
 }
-
-?>

@@ -2,10 +2,6 @@
 
 namespace wrp\includes;
 
-if (!defined('ABSPATH')) {
-    exit;
-}
-
 final class PluginOptions
 {
     private static $instance;
@@ -40,6 +36,14 @@ final class PluginOptions
                 array(
                     'value' => 'bottom',
                     'label' => 'Bottom of the page'
+                ),
+                array(
+                    'value' => 'left',
+                    'label' => 'Left side of the page'
+                ),
+                array(
+                    'value' => 'right',
+                    'label' => 'Right side of the page'
                 )
             )
         ));
@@ -49,6 +53,24 @@ final class PluginOptions
             'type' => 'slider',
             'page' => 'reading',
             'callback' => 'renderInputCheckbox',
+        ));
+
+        $this->setOption('wordpress-reading-bar-autohide-effect', array(
+            'title' => 'Progress bar position',
+            'type' => 'radio',
+            'page' => 'reading',
+            'callback' => 'renderInputRadio',
+            'defaultValue' => 'slide',
+            'options' => array(
+                array(
+                    'value' => 'slide',
+                    'label' => 'Slide'
+                ),
+                array(
+                    'value' => 'fadeOut',
+                    'label' => 'Fade out'
+                )
+            )
         ));
 
         $this->setOption('wordpress-reading-bar-height', array(
@@ -123,5 +145,3 @@ final class PluginOptions
         return $this->options;
     }
 }
-
-?>

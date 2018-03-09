@@ -33,6 +33,7 @@ class WordpressReadingProgress {
     appendScrollbarElement(appendTo) {
         this.scrollbarElement = document.createElement('div');
         this.scrollbarElement.setAttribute('id', this.scrollbarElementID);
+        this.scrollbarElement.classList.add(`position-${postReadingProgress.position}`);
         appendTo.appendChild(this.scrollbarElement);
         this.scrollbarElement.appendChild(document.createElement('div'));
     }
@@ -48,14 +49,21 @@ class WordpressReadingProgress {
 
         if (currentPercentPosition > 100) {
             currentPercentPosition = 100;
-            if ((this.scrollbarElement.className.indexOf('hide-top') || this.scrollbarElement.className.indexOf('hide-bottom')) && window.wordpressReadingBarAutohide == '1') {
-                window.getComputedStyle(this.scrollbarElement).getPropertyValue('top') == '0px' ? this.scrollbarElement.className = 'hide-top' : this.scrollbarElement.className = 'hide-bottom';
+
+            if (postReadingProgress.autohide == '1') {
+                this.scrollbarElement.classList.add(postReadingProgress.autohideAnimation);
             }
         } else {
-            this.scrollbarElement.className = '';
+            if (postReadingProgress.autohide == '1') {
+                this.scrollbarElement.classList.remove(postReadingProgress.autohideAnimation);
+            }
         }
 
-        document.querySelector(`#${this.scrollbarElementID} > div`).style.width = currentPercentPosition + '%';
+        if (postReadingProgress.position == 'top' || postReadingProgress.position == 'bottom') {
+            document.querySelector(`#${this.scrollbarElementID} > div`).style.width = currentPercentPosition + '%';
+        } else {
+            document.querySelector(`#${this.scrollbarElementID} > div`).style.height = currentPercentPosition + '%';
+        }
     }
 }
 
