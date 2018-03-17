@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace wrp;
 
-use wrp\includes\PluginOptions;
-
 if (!defined('ABSPATH')) {
     exit;
 }
