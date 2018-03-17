@@ -68,7 +68,11 @@ final class ReadingProgress
 
     public function includeAssets()
     {
-        if ($this->pluginOptions->getOption('wordpress-reading-bar-enable-plugin') == 1) {
+        //check plugin is enabled
+        $enabled = $this->pluginOptions->getOption('wordpress-reading-bar-enable-plugin') == 1;
+        $postTypes = $this->pluginOptions->getOption('wordpress-reading-bar-enabled-post-types');
+
+        if ($enabled === true && is_array($postTypes)) {
             if (in_array(
                 get_post_type(),
                 $this->pluginOptions->getOption('wordpress-reading-bar-enabled-post-types')
@@ -150,12 +154,13 @@ final class ReadingProgress
     {
         //check plugin is enabled
         $enabled = $this->pluginOptions->getOption('wordpress-reading-bar-enable-plugin') == 1;
+        $postTypes = $this->pluginOptions->getOption('wordpress-reading-bar-enabled-post-types');
 
-        if ($enabled === true) {
+        if ($enabled === true && is_array($postTypes)) {
             //check current post type should have progress reading bar
             $postTypeActive = in_array(
                 get_post_type(),
-                $this->pluginOptions->getOption('wordpress-reading-bar-enabled-post-types')
+                $postTypes
             );
 
             if ((is_single() && $postTypeActive === true) or (is_page() && $postTypeActive)) {

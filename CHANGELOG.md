@@ -4,6 +4,7 @@ All project changes will be listed below:
 
 ## [1.1.1] - 17.3.2018
 * fixed bug with plugin uninstallation
+* fixed bug **null cpt option**
 
 ## [1.1.0] - 9.3.2018
 * small code refactoring and improvements (PSR and JS)
