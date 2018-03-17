@@ -2,6 +2,9 @@
 
 All project changes will be listed below:
 
+## [1.1.2] - 17.3.2018
+* simplified and fixed plugin uninstall
+
 ## [1.1.1] - 17.3.2018
 * fixed bug with plugin uninstallation
 * fixed bug **null cpt option**

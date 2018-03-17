@@ -9,4 +9,6 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 
 require_once('vendor/autoload.php');
 
-$uninstall = new includes\ReadingProgressUninstall;
+foreach (includes\PluginOptions::getInstance()->getAllOptions() as $optionID => $option) {
+    delete_option($optionID);
+}
